@@ -30,7 +30,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 	public function prepend(ContainerBuilder $container)
 	{
 		if (!$container->hasExtension('monolog')) {
-			throw new \RuntimeException('Monolog is not registered.');
+			throw new \Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException();
 		}
 
 		$monologConfigList = $container->getExtensionConfig('monolog');
@@ -128,10 +128,10 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 		}
 		if (isset($handler['level'])) {
 			$level = $this->levelToMonologConstant($handler['level']);
-			$definition->replaceArgument(2, $level);
+			$definition->replaceArgument(1, $level);
 		}
 		if (isset($handler['bubble'])) {
-			$definition->replaceArgument(3, $handler['bubble']);
+			$definition->replaceArgument(2, $handler['bubble']);
 		}
 
 		$container->setDefinition($this->getHandlerName($name), $definition);
