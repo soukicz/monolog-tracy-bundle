@@ -9,7 +9,7 @@
  * please view the file LICENSE.md that was distributed with this source code.
  */
 
-namespace Nella\MonologExtensionsBundle;
+namespace Nella\MonologTracyBundle;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {

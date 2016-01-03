@@ -4,7 +4,7 @@
  * Copyright (c) 2014 Pavel Kučera (http://github.com/pavelkucera)
  */
 
-namespace Nella\MonologExtensionsBundle\DependencyInjection;
+namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('kucera_monolog_extensions');
+        $rootNode = $treeBuilder->root('monolog_tracy');
 
         $rootNode->children()
             ->arrayNode('handlers')

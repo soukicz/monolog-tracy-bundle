@@ -1,13 +1,13 @@
 <?php
 
-namespace Nella\MonologExtensionsBundle\DependencyInjection;
+namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class KuceraMonologExtensionsExtensionTest extends \Nella\MonologExtensionsBundle\TestCase
+class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 {
 
     /** @var ContainerBuilder */
@@ -23,7 +23,7 @@ class KuceraMonologExtensionsExtensionTest extends \Nella\MonologExtensionsBundl
     {
         $this->container = new ContainerBuilder();
         $this->container->registerExtension(new MonologExtension());
-        $this->container->registerExtension(new KuceraMonologExtensionsExtension());
+        $this->container->registerExtension(new MonologTracyExtension());
 
         $this->yamlLoader = new YamlFileLoader($this->container, new FileLocator(__DIR__.'/Fixtures'));
 
@@ -41,7 +41,7 @@ class KuceraMonologExtensionsExtensionTest extends \Nella\MonologExtensionsBundl
     public function testThrowsExceptionWhenMonologIsMissing()
     {
         $containerBuilder = new ContainerBuilder();
-        $containerBuilder->registerExtension(new KuceraMonologExtensionsExtension());
+        $containerBuilder->registerExtension(new MonologTracyExtension());
 
         $containerBuilder->compile();
     }
@@ -66,7 +66,7 @@ class KuceraMonologExtensionsExtensionTest extends \Nella\MonologExtensionsBundl
         $this->loadFixture('fullBlueScreen.yml');
         $this->compile();
 
-        $config = $this->getConfig('kucera_monolog_extensions');
+        $config = $this->getConfig('monolog_tracy');
         $handlers = $config['handlers'];
         $this->assertEquals(array(
             'log_directory' => '%kernel.logs_dir%',

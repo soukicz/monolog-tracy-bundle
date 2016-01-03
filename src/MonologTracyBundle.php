@@ -4,12 +4,12 @@
  * Copyright (c) 2014 Pavel Kučera (http://github.com/pavelkucera)
  */
 
-namespace Nella\MonologExtensionsBundle;
+namespace Nella\MonologTracyBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 
-class KuceraMonologExtensionsBundle extends Bundle
+class MonologTracyBundle extends Bundle
 {
 
 }

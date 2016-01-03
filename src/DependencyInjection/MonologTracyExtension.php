@@ -4,7 +4,7 @@
  * Copyright (c) 2014 Pavel Kučera (http://github.com/pavelkucera)
  */
 
-namespace Nella\MonologExtensionsBundle\DependencyInjection;
+namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class KuceraMonologExtensionsExtension extends Extension implements PrependExtensionInterface
+class MonologTracyExtension extends Extension implements PrependExtensionInterface
 {
 
     /**
@@ -39,7 +39,7 @@ class KuceraMonologExtensionsExtension extends Extension implements PrependExten
             });
 
             // Create config
-            $container->loadFromExtension('kucera_monolog_extensions', $this->createConfigEntry($handlers));
+            $container->loadFromExtension('monolog_tracy', $this->createConfigEntry($handlers));
             $container->loadFromExtension('monolog', $this->createMonologConfigEntry($handlers));
         }
     }

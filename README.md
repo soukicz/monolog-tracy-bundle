@@ -32,7 +32,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Kucera\MonologExtensionsBundle\KuceraMonologExtensionsBundle(), // what a terrible name!
+        new Nella\MonologTracyBundle\MonologTracyBundle(), // what a terrible name!
     );
 }
 ```
