@@ -1,31 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- http://www.phpunit.de/manual/current/en/appendixes.configuration.html -->
+<?xml version="1.0"?>
 <phpunit
-        backupGlobals               = "false"
-        backupStaticAttributes      = "false"
-        colors                      = "true"
-        convertErrorsToExceptions   = "true"
-        convertNoticesToExceptions  = "true"
-        convertWarningsToExceptions = "true"
-        processIsolation            = "false"
-        stopOnFailure               = "false"
-        syntaxCheck                 = "false"
-        bootstrap                   = "bootstrap.php" >
-
-    <testsuites>
-        <testsuite name="Monolog Extensions Bundle Test Suite">
-            <directory>Tests</directory>
-        </testsuite>
-    </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory>.</directory>
-            <exclude>
-                <directory>Tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-
+	bootstrap="bootstrap.php"
+	colors="true"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+	beStrictAboutChangesToGlobalState="true"
+	beStrictAboutOutputDuringTests="true"
+	beStrictAboutTestsThatDoNotTestAnything="true"
+	beStrictAboutTodoAnnotatedTests="true"
+>
+	<logging>
+		<log
+			type="coverage-clover"
+			target="../build/coverage.xml"
+		/>
+		<log
+			type="coverage-text"
+			target="php://stdout"
+			showUncoveredFiles="true"
+			showOnlySummary="true"
+		/>
+	</logging>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">../src</directory>
+		</whitelist>
+	</filter>
 </phpunit>
