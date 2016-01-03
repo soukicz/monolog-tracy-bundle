@@ -32,7 +32,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Nella\\MonologExtensionsBundle\\": "./"
+			"Nella\\MonologExtensionsBundle\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Nella\\MonologExtensionsBundle\\Tests\\": "tests/"
 		}
 	}
 }
