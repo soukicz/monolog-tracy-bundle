@@ -1,6 +1,6 @@
 <?php
 
-namespace Nella\MonologExtensionsBundle\Tests;
+namespace Nella\MonologExtensionsBundle;
 
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
