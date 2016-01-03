@@ -17,8 +17,8 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/nella/monolog-tracy/issues",
-		"source": "https://github.com/nella/monolog-tracy"
+		"issues": "https://github.com/nella/monolog-tracy-bundle/issues",
+		"source": "https://github.com/nella/monolog-tracy-bundle"
 	},
 	"autoload": {
 		"psr-4": {
