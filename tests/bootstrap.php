@@ -9,9 +9,4 @@
  * please view the file LICENSE.md that was distributed with this source code.
  */
 
-namespace Nella\MonologExtensionsBundle;
-
-abstract class TestCase extends \PHPUnit_Framework_TestCase
-{
-
-}
+require_once __DIR__ . '/../vendor/autoload.php';
