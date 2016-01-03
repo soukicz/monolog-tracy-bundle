@@ -1,14 +1,14 @@
 <?php
 
-namespace Kucera\MonologExtensionsBundle\Tests\DependencyInjection;
+namespace Nella\MonologExtensionsBundle\Tests\DependencyInjection;
 
-use Kucera\MonologExtensionsBundle\DependencyInjection\KuceraMonologExtensionsExtension;
+use Nella\MonologExtensionsBundle\DependencyInjection\KuceraMonologExtensionsExtension;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Config\FileLocator;
 
-class KuceraMonologExtensionsExtensionTest extends \Kucera\MonologExtensionsBundle\Tests\TestCase
+class KuceraMonologExtensionsExtensionTest extends \Nella\MonologExtensionsBundle\Tests\TestCase
 {
 
     /** @var ContainerBuilder */

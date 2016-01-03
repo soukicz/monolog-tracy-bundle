@@ -4,7 +4,7 @@
  * Copyright (c) 2014 Pavel Kučera (http://github.com/pavelkucera)
  */
 
-namespace Kucera\MonologExtensionsBundle\DependencyInjection;
+namespace Nella\MonologExtensionsBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
