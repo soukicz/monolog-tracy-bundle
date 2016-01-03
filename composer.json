@@ -28,7 +28,7 @@
 		"kucera/monolog-extensions": "~0.1.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~4.1"
+		"phpunit/phpunit": "4.8.21"
 	},
 	"autoload": {
 		"psr-4": {
