@@ -1,8 +1,8 @@
-# kucera/monolog-extensions-bundle
+# nella/monolog-tracy-bundle
 
-[![Build Status](https://travis-ci.org/pavelkucera/monolog-extensions-bundle.svg?branch=master)](https://travis-ci.org/pavelkucera/monolog-extensions-bundle)
-[![Downloads this Month](https://img.shields.io/packagist/dm/kucera/monolog-extensions-bundle.svg)](https://packagist.org/packages/kucera/monolog-extensions-bundle)
-[![Latest stable](https://img.shields.io/packagist/v/kucera/monolog-extensions-bundle.svg)](https://packagist.org/packages/kucera/monolog-extensions-bundle)
+[![Build Status](https://travis-ci.org/nella/monolog-tracy-bundle.svg?branch=master)](https://travis-ci.org/nella/monolog-tracy-bundle)
+[![Downloads this Month](https://img.shields.io/packagist/dm/nella/monolog-tracy-bundle.svg)](https://packagist.org/packages/nella/monolog-tracy-bundle)
+[![Latest stable](https://img.shields.io/packagist/v/nella/monolog-tracy-bundle.svg)](https://packagist.org/packages/nella/monolog-tracy-bundle)
 
 
 Bundle providing mainly integration of [Tracy](https://github.com/nette/tracy) into [Symfony](https://symfony.com).
@@ -21,7 +21,7 @@ fully compatible with this library.
 Using  [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require kucera/monolog-extensions-bundle:~0.1.0
+$ composer require nella/monolog-tracy-bundle:~0.1.0
 ```
 
 ### Register Bundle

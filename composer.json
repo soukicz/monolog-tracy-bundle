@@ -1,8 +1,8 @@
 {
-	"name": "kucera/monolog-extensions-bundle",
-	"description": "Bundle adding a set of Monolog extensions.",
+	"name": "nella/monolog-tracy-bundle",
+	"description": "Tracy BlueScreen handler for Monolog - Symfony bundle",
 	"type": "library",
-	"keywords": ["Symfony", "Monolog", "Tracy", "log", "logging", "blue screen"],
+	"keywords": ["Monolog", "Tracy", "log", "logging", "blue screen", "Symfony", "bundle"],
 	"homepage": "https://github.com/pavelkucera/monolog-extensions-bundle",
 	"license": ["MIT", "GPL-2.0", "GPL-3.0"],
 	"authors": [
@@ -12,7 +12,7 @@
 		}
 	],
 	"support": {
-		"issues": "https://github.com/pavelkucera/monolog-extensions-bundle/issues"
+		"issues": "https://github.com/nella/monolog-tracy-bundle/issues"
 	},
 	"require": {
 		"php": ">=5.3.2",
