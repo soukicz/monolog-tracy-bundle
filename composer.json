@@ -20,7 +20,7 @@
 		"issues": "https://github.com/nella/monolog-tracy-bundle/issues"
 	},
 	"require": {
-		"php": "~5.6",
+		"php": "~5.6|~7.0",
 		"symfony/monolog-bundle": "~2.6|~3.0",
 		"symfony/dependency-injection": "~2.6|~3.0",
 		"symfony/config": "~2.6|~3.0",
