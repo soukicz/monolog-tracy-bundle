@@ -17,26 +17,26 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
 
-    public function getConfigTreeBuilder()
-    {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('monolog_tracy');
+	public function getConfigTreeBuilder()
+	{
+		$treeBuilder = new TreeBuilder();
+		$rootNode = $treeBuilder->root('monolog_tracy');
 
-        $rootNode->children()
-            ->arrayNode('handlers')
-                ->useAttributeAsKey('name')
-                ->canBeUnset()
-                ->prototype('array')
-                    ->children()
-                        ->scalarNode('log_directory')->defaultValue('%kernel.logs_dir%/blueScreen')->end()
-                        ->scalarNode('level')->defaultValue('DEBUG')->end()
-                        ->booleanNode('bubble')->defaultTrue()->end()
-                    ->end()
-                ->end()
-            ->end()
-        ->end();
+		$rootNode->children()
+			->arrayNode('handlers')
+				->useAttributeAsKey('name')
+				->canBeUnset()
+				->prototype('array')
+					->children()
+						->scalarNode('log_directory')->defaultValue('%kernel.logs_dir%/blueScreen')->end()
+						->scalarNode('level')->defaultValue('DEBUG')->end()
+						->booleanNode('bubble')->defaultTrue()->end()
+					->end()
+				->end()
+			->end()
+		->end();
 
-        return $treeBuilder;
-    }
+		return $treeBuilder;
+	}
 
 }
