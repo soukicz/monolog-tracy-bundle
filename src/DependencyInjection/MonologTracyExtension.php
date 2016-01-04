@@ -64,6 +64,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
 		$loader->load('parameters.yml');
+		$loader->load('blueScreenFactory.yml');
 
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 		$loader->load('services.yml');
