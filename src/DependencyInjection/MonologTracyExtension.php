@@ -66,8 +66,36 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 		$loader->load('parameters.yml');
 		$loader->load('blueScreenFactory.yml');
 
+		$this->setupBlueScreenFactory($container);
+
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
 		$loader->load('services.yml');
+	}
+
+	private function setupBlueScreenFactory(ContainerBuilder $container)
+	{
+		$definition = new DefinitionDecorator('nella.monolog_tracy.tracy.blue_screen_factory_prototype');
+
+		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Symfony %s',
+				\Symfony\Component\HttpKernel\Kernel::VERSION
+			)]);
+		}
+		if (class_exists(\Twig_Environment::class)) { // Twig version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Twig %s',
+				\Twig_Environment::VERSION
+			)]);
+		}
+		if (class_exists(\Doctrine\ORM\Version::class)) { // Twig version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Doctrine ORM %s',
+				\Doctrine\ORM\Version::VERSION
+			)]);
+		}
+
+		$container->setDefinition('nella.monolog_tracy.tracy.blue_screen_factory', $definition);
 	}
 
 	/**
