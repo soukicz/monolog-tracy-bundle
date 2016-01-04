@@ -67,6 +67,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 		$loader->load('blueScreenFactory.yml');
 		$loader->load('blueScreen.yml');
 		$loader->load('loggerHelper.yml');
+		$loader->load('blueScreenHandler.yml');
 
 		$this->setupBlueScreenFactory($container);
 
