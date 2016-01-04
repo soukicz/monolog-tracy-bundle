@@ -1,0 +1,4 @@
+services:
+    nella.monolog_tracy.blue_screen:
+        class: Tracy\BlueScreen
+        factory: [ %nella.monolog_tracy.tracy.blue_screen_factory.service%, create ]
