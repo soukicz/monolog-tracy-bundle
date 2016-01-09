@@ -1,8 +1,12 @@
 # nella/monolog-tracy-bundle
 
-[![Build Status](https://travis-ci.org/nella/monolog-tracy-bundle.svg?branch=master)](https://travis-ci.org/nella/monolog-tracy-bundle)
-[![Downloads this Month](https://img.shields.io/packagist/dm/nella/monolog-tracy-bundle.svg)](https://packagist.org/packages/nella/monolog-tracy-bundle)
-[![Latest stable](https://img.shields.io/packagist/v/nella/monolog-tracy-bundle.svg)](https://packagist.org/packages/nella/monolog-tracy-bundle)
+[![Build Status](https://img.shields.io/travis/nella/monolog-tracy-bundle/master.svg?style=flat-square)](https://travis-ci.org/nella/monolog-tracy-bundle)
+[![Code Coverage](https://img.shields.io/coveralls/nella/monolog-tracy-bundle.svg?style=flat-square)](https://coveralls.io/r/nella/monolog-tracy-bundle)
+[![SensioLabsInsight Status](https://img.shields.io/sensiolabs/i/76c87979-7eda-4f6b-94a5-07bd54259d5f.svg?style=flat-square)](https://insight.sensiolabs.com/projects/76c87979-7eda-4f6b-94a5-07bd54259d5f)
+[![Latest Stable Version](https://img.shields.io/packagist/v/nella/monolog-tracy-bundle.svg?style=flat-square)](https://packagist.org/packages/nella/monolog-tracy-bundle)
+[![Composer Downloads](https://img.shields.io/packagist/dt/nella/monolog-tracy-bundle.svg?style=flat-square)](https://packagist.org/packages/nella/monolog-tracy-bundle)
+[![Dependency Status](https://img.shields.io/versioneye/d/user/projects/569191a8daa0bf00330000db.svg?style=flat-square)](https://www.versioneye.com/user/projects/569191a8daa0bf00330000db)
+[![HHVM Status](https://img.shields.io/hhvm/nella/monolog-tracy-bundle.svg?style=flat-square)](http://hhvm.h4cc.de/package/nella/monolog-tracy-bundle)
 
 
 Bundle providing mainly integration of [Tracy](https://github.com/nette/tracy) into [Symfony](https://symfony.com).
