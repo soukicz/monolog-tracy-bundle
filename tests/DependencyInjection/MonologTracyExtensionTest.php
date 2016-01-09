@@ -44,8 +44,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 	}
 
 	/**
-	 * @expectedException \RuntimeException
-	 * @expectedExceptionMessage Monolog is not registered.
+	 * @expectedException \Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException
 	 */
 	public function testThrowsExceptionWhenMonologIsMissing()
 	{
@@ -75,12 +74,16 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 		$this->loadFixture('fullBlueScreen.yml');
 		$this->compile();
 
-		$config = $this->getConfig('monolog_tracy');
+		$config = $this->getConfig('monolog');
 		$handlers = $config['handlers'];
 		$this->assertEquals(array(
-			'log_directory' => '%kernel.logs_dir%',
+			'type' => 'service',
+			'id' => 'nella.monolog_tracy.blue_screen_handler',
 			'level' => 'critical',
 			'bubble' => FALSE,
+			'channels' => [
+				'channel'
+			]
 		), $handlers['blueScreen']);
 	}
 
@@ -97,16 +100,6 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 			'path' => '%kernel.logs_dir%/%kernel.environment%.log',
 			'level' => 'debug',
 		), $handlers['main']);
-	}
-
-	public function testConvertsLevelParameter()
-	{
-		$this->loadFixture('monolog.yml');
-		$this->loadFixture('fullBlueScreen.yml');
-		$this->compile();
-
-		$definition = $this->container->getDefinition('nella.monolog_tracy.blue_screen_handler');
-		$this->assertSame(500, $definition->getArgument(2));
 	}
 
 	private function getConfig($extension)

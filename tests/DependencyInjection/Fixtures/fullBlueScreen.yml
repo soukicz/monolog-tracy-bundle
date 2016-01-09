@@ -3,6 +3,5 @@ monolog:
         blueScreen:
             type: tracyBlueScreen
             level: critical
-            path: %kernel.logs_dir%
             bubble: false
             channels: ["channel"]
