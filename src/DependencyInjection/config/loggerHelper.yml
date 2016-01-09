@@ -1,6 +1,0 @@
-services:
-    nella.monolog_tracy.tracy.logger_helper:
-        class: Nella\MonologTracy\Tracy\LoggerHelper
-        arguments:
-            - %nella.monolog_tracy.blue_screen.service%
-            - %nella.monolog_tracy.log_directory%

@@ -1,3 +1,0 @@
-services:
-    nella.monolog_tracy.tracy.blue_screen_factory:
-        class: Nella\MonologTracy\Tracy\BlueScreenFactory

@@ -34,10 +34,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
 		$loader->load('parameters.yml');
-		$loader->load('blueScreenFactory.yml');
-		$loader->load('blueScreen.yml');
-		$loader->load('loggerHelper.yml');
-		$loader->load('blueScreenHandler.yml');
+		$loader->load('services.yml');
 
 		$monologConfigList = $container->getExtensionConfig('monolog');
 		foreach ($monologConfigList as $config) {

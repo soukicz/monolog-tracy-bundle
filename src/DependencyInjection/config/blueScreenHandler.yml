@@ -1,7 +1,0 @@
-services:
-    nella.monolog_tracy.blue_screen_handler:
-        class: Nella\MonologTracy\BlueScreenHandler
-        arguments:
-            - %nella.monolog_tracy.tracy.logger_helper.service%
-            - %nella.monolog_tracy.blue_screen_handler.level%
-            - %nella.monolog_tracy.blue_screen_handler.bubble%
