@@ -14,7 +14,7 @@ namespace Nella\MonologTracyBundle\DependencyInjection;
 class MissingMonologExtensionException extends \RuntimeException implements \Nella\MonologTracyBundle\DependencyInjection\Exception
 {
 
-	public function __construct(Exception $previous = NULL)
+	public function __construct(\Exception $previous = NULL)
 	{
 		parent::__construct('Monolog extension is not registered.', 0, $previous);
 	}

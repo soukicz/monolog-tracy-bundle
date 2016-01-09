@@ -11,10 +11,7 @@
 
 namespace Nella\MonologTracyBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-
-class MonologTracyBundle extends Bundle
+class MonologTracyBundle extends \Symfony\Component\HttpKernel\Bundle\Bundle
 {
 
 }

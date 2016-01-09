@@ -13,11 +13,9 @@ namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class MonologTracyExtension extends Extension implements PrependExtensionInterface
+class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInjection\Extension implements \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface
 {
 
 	/**
@@ -32,7 +30,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 			throw new \Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException();
 		}
 
-		$loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/config'));
+		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
 		$loader->load('parameters.yml');
 		$loader->load('services.yml');
 
@@ -42,7 +40,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 				continue;
 			}
 
-			$handlers = array_filter($config['handlers'], function(array $handler) {
+			$handlers = array_filter($config['handlers'], function (array $handler) {
 				return is_array($handler) && isset($handler['type']) && $handler['type'] === 'tracyBlueScreen';
 			});
 
@@ -94,6 +92,7 @@ class MonologTracyExtension extends Extension implements PrependExtensionInterfa
 	 * and adding a service id.
 	 *
 	 * @param array $handlers
+	 * @param string $serviceId
 	 * @return array
 	 */
 	private function createMonologConfigEntry(array $handlers, $serviceId)

@@ -12,9 +12,9 @@
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Config\FileLocator;
 
 class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 {
@@ -34,7 +34,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 		$this->container->registerExtension(new MonologExtension());
 		$this->container->registerExtension(new MonologTracyExtension());
 
-		$this->yamlLoader = new YamlFileLoader($this->container, new FileLocator(__DIR__.'/Fixtures'));
+		$this->yamlLoader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/Fixtures'));
 
 		$this->logDirectory = sys_get_temp_dir() . '/' . getmypid() . microtime() . '-monologExtensionsTest';
 		@mkdir($this->logDirectory);
@@ -82,8 +82,8 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 			'level' => 'critical',
 			'bubble' => FALSE,
 			'channels' => [
-				'channel'
-			]
+				'channel',
+			],
 		], $handlers['blueScreen']);
 	}
 
@@ -105,7 +105,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 	private function getConfig($extension)
 	{
 		$configs = $this->container->getExtensionConfig($extension);
-		$config = array();
+		$config = [];
 		foreach ($configs as $tmp) {
 			$config = array_replace_recursive($config, $tmp);
 		}
