@@ -1,4 +1,4 @@
 monolog:
     handlers:
         blueScreen:
-            type: blue screen
+            type: tracyBlueScreen

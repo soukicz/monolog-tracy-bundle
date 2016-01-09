@@ -1,7 +1,7 @@
 monolog:
     handlers:
         blueScreen:
-            type: blue screen
+            type: tracyBlueScreen
             level: critical
             path: %kernel.logs_dir%
             bubble: false

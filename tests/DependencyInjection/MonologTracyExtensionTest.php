@@ -65,7 +65,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 		$handlers = $config['handlers'];
 		$this->assertSame(array(
 			'type' => 'service',
-			'id' => 'kucera.monolog.blue_screen_handlers.blueScreen',
+			'id' => 'nella.monolog_tracy.blue_screen_handler',
 		), $handlers['blueScreen']);
 	}
 
@@ -105,7 +105,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 		$this->loadFixture('fullBlueScreen.yml');
 		$this->compile();
 
-		$definition = $this->container->getDefinition('kucera.monolog.blue_screen_handlers.blueScreen');
+		$definition = $this->container->getDefinition('nella.monolog_tracy.blue_screen_handler');
 		$this->assertSame(500, $definition->getArgument(2));
 	}
 
