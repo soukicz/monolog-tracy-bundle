@@ -62,10 +62,10 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 
 		$config = $this->getConfig('monolog');
 		$handlers = $config['handlers'];
-		$this->assertSame(array(
+		$this->assertSame([
 			'type' => 'service',
 			'id' => 'nella.monolog_tracy.blue_screen_handler',
-		), $handlers['blueScreen']);
+		], $handlers['blueScreen']);
 	}
 
 	public function testSavesConfiguration()
@@ -76,7 +76,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 
 		$config = $this->getConfig('monolog');
 		$handlers = $config['handlers'];
-		$this->assertEquals(array(
+		$this->assertEquals([
 			'type' => 'service',
 			'id' => 'nella.monolog_tracy.blue_screen_handler',
 			'level' => 'critical',
@@ -84,7 +84,7 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 			'channels' => [
 				'channel'
 			]
-		), $handlers['blueScreen']);
+		], $handlers['blueScreen']);
 	}
 
 	public function testEditsOnlyBlueScreens()
@@ -95,11 +95,11 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 
 		$config = $this->getConfig('monolog');
 		$handlers = $config['handlers'];
-		$this->assertSame(array(
+		$this->assertSame([
 			'type' => 'stream',
 			'path' => '%kernel.logs_dir%/%kernel.environment%.log',
 			'level' => 'debug',
-		), $handlers['main']);
+		], $handlers['main']);
 	}
 
 	private function getConfig($extension)
