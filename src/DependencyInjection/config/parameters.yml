@@ -1,8 +1,0 @@
-parameters:
-    nella.monolog_tracy.blue_screen.service: '@nella.monolog_tracy.blue_screen'
-    nella.monolog_tracy.blue_screen_handler.service: '@nella.monolog_tracy.blue_screen_handler'
-    nella.monolog_tracy.blue_screen_handler.level: '@=constant("Monolog\\Logger::DEBUG")'
-    nella.monolog_tracy.blue_screen_handler.bubble: true
-    nella.monolog_tracy.log_directory: %kernel.logs_dir%/tracy
-    nella.monolog_tracy.tracy.blue_screen_factory.service: '@nella.monolog_tracy.tracy.blue_screen_factor'
-    nella.monolog_tracy.tracy.logger_helper.service: '@nella.monolog_tracy.tracy.logger_helper'

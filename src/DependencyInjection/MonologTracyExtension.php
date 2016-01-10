@@ -13,10 +13,18 @@ namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInjection\Extension implements \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface
+class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension implements \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface
 {
+
+	const BLUESCREEN_FACTORY_SERVICE_ID = 'nella.monolog_tracy.tracy.blue_screen_factory';
+	const BLUESCREEN_HANDLER_SERVICE_ID = 'nella.monolog_tracy.blue_screen_handler';
+
+	const LOG_DIRECTORY_PARAMETER = 'nella.monolog_tracy.log_directory';
+	const HANDLER_BUBBLE_PARAMETER = 'nella.monolog_tracy.blue_screen_handler.bubble';
+	const HANDLER_LEVEL_PARAMETER = 'nella.monolog_tracy.blue_screen_handler.level';
 
 	/**
 	 * Steals Monolog configuration, goes through handlers and adjusts config
@@ -30,9 +38,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			throw new \Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException();
 		}
 
-		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
-		$loader->load('parameters.yml');
-		$loader->load('services.yml');
+		$this->createTemporaryHandlerService($container);
 
 		$monologConfigList = $container->getExtensionConfig('monolog');
 		foreach ($monologConfigList as $config) {
@@ -45,25 +51,34 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			});
 
 			// Create config
-			$container->loadFromExtension('monolog', $this->createMonologConfigEntry(
-				$handlers,
-				'nella.monolog_tracy.blue_screen_handler'
-			));
+			$container->loadFromExtension('monolog', $this->createMonologConfigEntry($handlers));
 		}
 	}
 
 	/**
-	 * @param array $configs
+	 * @param mixed[] $config
 	 * @param ContainerBuilder $container
 	 */
-	public function load(array $configs, ContainerBuilder $container)
+	public function loadInternal(array $config, ContainerBuilder $container)
 	{
+		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
+		$loader->load('services.yml');
+
+		$container->setParameter(static::LOG_DIRECTORY_PARAMETER, $config[Configuration::LOG_DIRECTORY]);
+		$container->setParameter(static::HANDLER_BUBBLE_PARAMETER, $config[Configuration::HANDLER_BUBBLE]);
+		$container->setParameter(static::HANDLER_LEVEL_PARAMETER, $config[Configuration::HANDLER_LEVEL]);
+
 		$this->setupBlueScreenFactory($container);
 	}
 
 	private function setupBlueScreenFactory(ContainerBuilder $container)
 	{
-		$definition = $container->getDefinition('nella.monolog_tracy.tracy.blue_screen_factory');
+		if ($container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
+			$definition = $container->getDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID);
+		} else {
+			$alias = $container->getAlias(static::BLUESCREEN_FACTORY_SERVICE_ID);
+			$definition = $container->getDefinition((string) $alias);
+		}
 
 		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
 			$definition->addMethodCall('registerInfo', [sprintf(
@@ -84,23 +99,30 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			)]);
 		}
 
-		$container->setDefinition('nella.monolog_tracy.tracy.blue_screen_factory', $definition);
+		$container->setDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID, $definition);
+	}
+
+	private function createTemporaryHandlerService(ContainerBuilder $container)
+	{
+		$container->setDefinition(
+			static::BLUESCREEN_HANDLER_SERVICE_ID,
+			new Definition('stdClass')
+		);
 	}
 
 	/**
-	 * Adjusts Monolog configuration to be valid by replacing 'blue screen' type by 'service'
+	 * Adjusts Monolog configuration to be valid by replacing 'tracyBlueScreen' type by 'service'
 	 * and adding a service id.
 	 *
 	 * @param array $handlers
-	 * @param string $serviceId
 	 * @return array
 	 */
-	private function createMonologConfigEntry(array $handlers, $serviceId)
+	private function createMonologConfigEntry(array $handlers)
 	{
 		$config = [];
 		foreach ($handlers as $name => $value) {
 			$value['type'] = 'service';
-			$value['id'] = $serviceId;
+			$value['id'] = static::BLUESCREEN_HANDLER_SERVICE_ID;
 
 			$config[$name] = $value;
 		}

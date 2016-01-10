@@ -11,31 +11,87 @@
 
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
+use Monolog\Logger;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class Configuration implements \Symfony\Component\Config\Definition\ConfigurationInterface
 {
 
+	const ROOT_NAME = 'monolog_tracy';
+
+	const LOG_DIRECTORY = 'log_directory';
+	const HANDLER_BUBBLE = 'handler_bubble';
+	const HANDLER_LEVEL = 'handler_level';
+
+	const INFO_ITEMS = 'infoItems';
+	const PANELS = 'panels';
+
 	public function getConfigTreeBuilder()
 	{
 		$treeBuilder = new TreeBuilder();
-		$rootNode = $treeBuilder->root('monolog_tracy');
+		$rootNode = $treeBuilder->root(static::ROOT_NAME);
+		$rootNode->addDefaultsIfNotSet();
 
-		$rootNode->children()
-			->arrayNode('handlers')
-				->useAttributeAsKey('name')
-				->canBeUnset()
-				->prototype('array')
-					->children()
-						->scalarNode('log_directory')->defaultValue('%kernel.logs_dir%/blueScreen')->end()
-						->scalarNode('level')->defaultValue('DEBUG')->end()
-						->booleanNode('bubble')->defaultTrue()->end()
-					->end()
-				->end()
-			->end()
-		->end();
+		$this->addLogDirectory($rootNode);
+		$this->addHandlerBubble($rootNode);
+		$this->addHandlerLevel($rootNode);
+		$this->addInfoItems($rootNode);
+		$this->addPanels($rootNode);
 
 		return $treeBuilder;
+	}
+
+	private function addLogDirectory(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->children()
+				->scalarNode(static::LOG_DIRECTORY)
+					->defaultValue('%kernel.logs_dir%/tracy')
+				->end()
+			->end();
+	}
+
+	private function addHandlerBubble(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->children()
+			->scalarNode(static::HANDLER_BUBBLE)
+			->defaultValue(TRUE)
+			->end()
+			->end();
+	}
+
+	private function addHandlerLevel(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->children()
+				->scalarNode(static::HANDLER_LEVEL)
+					->defaultValue(Logger::DEBUG)
+				->end()
+			->end();
+	}
+
+	private function addInfoItems(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->fixXmlConfig('info_item')
+			->children()
+				->arrayNode(static::INFO_ITEMS)
+					->prototype('scalar')
+				->end()
+			->end();
+	}
+
+	private function addPanels(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->fixXmlConfig('panel')
+			->children()
+				->arrayNode(static::PANELS)
+					->prototype('scalar')
+				->end()
+			->end();
 	}
 
 }
