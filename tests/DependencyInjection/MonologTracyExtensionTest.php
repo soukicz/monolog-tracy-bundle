@@ -102,6 +102,15 @@ class MonologTracyExtensionTest extends \Nella\MonologTracyBundle\TestCase
 		], $handlers['main']);
 	}
 
+	public function testNoHandlers()
+	{
+		$this->loadFixture('noHandlers.yml');
+		$this->compile();
+
+		$config = $this->getConfig('monolog');
+		$this->assertCount(0, $config['handlers']);
+	}
+
 	private function getConfig($extension)
 	{
 		$configs = $this->container->getExtensionConfig($extension);
