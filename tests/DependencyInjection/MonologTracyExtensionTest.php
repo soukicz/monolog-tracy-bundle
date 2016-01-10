@@ -12,6 +12,8 @@
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase
 {
@@ -65,6 +67,27 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->assertContainerBuilderHasService(MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID);
 
 		$this->compile();
+	}
+
+	public function testFactoryServiceNoAlias()
+	{
+		$this->loadConfigs([
+			'blueScreenFactoryNoAlias.yml',
+		]);
+
+		$this->load();
+
+		$this->assertContainerBuilderHasService(MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID);
+
+		$this->compile();
+	}
+
+	private function loadConfigs(array $configs)
+	{
+		$loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/fixtures'));
+		foreach ($configs as $config) {
+			$loader->load($config);
+		}
 	}
 
 }
