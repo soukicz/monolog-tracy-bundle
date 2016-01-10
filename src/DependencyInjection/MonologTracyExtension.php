@@ -71,37 +71,6 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$this->setupBlueScreenFactory($container);
 	}
 
-	private function setupBlueScreenFactory(ContainerBuilder $container)
-	{
-		if ($container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
-			$definition = $container->getDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID);
-		} else {
-			$alias = $container->getAlias(static::BLUESCREEN_FACTORY_SERVICE_ID);
-			$definition = $container->getDefinition((string) $alias);
-		}
-
-		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
-			$definition->addMethodCall('registerInfo', [sprintf(
-				'Symfony %s',
-				\Symfony\Component\HttpKernel\Kernel::VERSION
-			)]);
-		}
-		if (class_exists(\Twig_Environment::class)) { // Twig version
-			$definition->addMethodCall('registerInfo', [sprintf(
-				'Twig %s',
-				\Twig_Environment::VERSION
-			)]);
-		}
-		if (class_exists(\Doctrine\ORM\Version::class)) { // Twig version
-			$definition->addMethodCall('registerInfo', [sprintf(
-				'Doctrine ORM %s',
-				\Doctrine\ORM\Version::VERSION
-			)]);
-		}
-
-		$container->setDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID, $definition);
-	}
-
 	private function createTemporaryHandlerService(ContainerBuilder $container)
 	{
 		$container->setDefinition(
@@ -130,6 +99,46 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		return [
 			'handlers' => $config,
 		];
+	}
+
+	private function setupBlueScreenFactory(ContainerBuilder $container)
+	{
+		$serviceId = $this->getBlueScreenFactoryServiceId($container);
+		$definition = $container->getDefinition($serviceId);
+
+		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Symfony %s',
+				\Symfony\Component\HttpKernel\Kernel::VERSION
+			)]);
+		}
+		if (class_exists(\Twig_Environment::class)) { // Twig version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Twig %s',
+				\Twig_Environment::VERSION
+			)]);
+		}
+		if (class_exists(\Doctrine\ORM\Version::class)) { // Twig version
+			$definition->addMethodCall('registerInfo', [sprintf(
+				'Doctrine ORM %s',
+				\Doctrine\ORM\Version::VERSION
+			)]);
+		}
+
+		$container->setDefinition($serviceId, $definition);
+	}
+
+	/**
+	 * @param ContainerBuilder $container
+	 * @return string
+	 */
+	private function getBlueScreenFactoryServiceId(ContainerBuilder $container)
+	{
+		if ($container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
+			return static::BLUESCREEN_FACTORY_SERVICE_ID;
+		} else {
+			return (string) $container->getAlias(static::BLUESCREEN_FACTORY_SERVICE_ID);
+		}
 	}
 
 }
