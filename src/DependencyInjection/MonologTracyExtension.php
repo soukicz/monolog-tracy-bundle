@@ -158,7 +158,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 	/**
 	 * @param Definition $definition
-	 * @param callable[] $infoItems
+	 * @param callable[] $panels
 	 */
 	private function processPanels(Definition $definition, array $panels)
 	{
