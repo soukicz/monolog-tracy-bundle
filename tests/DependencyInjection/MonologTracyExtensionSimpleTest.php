@@ -108,7 +108,7 @@ class MonologTracyExtensionSimpleTest extends \Nella\MonologTracyBundle\TestCase
 		$this->compile();
 
 		$config = $this->getConfig('monolog');
-		$this->assertCount(0, $config['handlers']);
+		$this->assertArrayNotHasKey('handlers', $config);
 	}
 
 	private function getConfig($extension)
