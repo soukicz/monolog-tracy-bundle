@@ -68,7 +68,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$container->setParameter(static::HANDLER_BUBBLE_PARAMETER, $config[Configuration::HANDLER_BUBBLE]);
 		$container->setParameter(static::HANDLER_LEVEL_PARAMETER, $config[Configuration::HANDLER_LEVEL]);
 
-		$this->setupBlueScreenFactory($container);
+		$this->setupBlueScreenFactory($container, $config[Configuration::INFO_ITEMS], $config[Configuration::PANELS]);
 	}
 
 	private function createTemporaryHandlerService(ContainerBuilder $container)
@@ -101,29 +101,33 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		];
 	}
 
-	private function setupBlueScreenFactory(ContainerBuilder $container)
+	private function setupBlueScreenFactory(ContainerBuilder $container, $infoItems, $panels)
 	{
 		$serviceId = $this->getBlueScreenFactoryServiceId($container);
 		$definition = $container->getDefinition($serviceId);
 
-		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
-			$definition->addMethodCall('registerInfo', [sprintf(
-				'Symfony %s',
-				\Symfony\Component\HttpKernel\Kernel::VERSION
-			)]);
-		}
+		// Default info
 		if (class_exists(\Twig_Environment::class)) { // Twig version
-			$definition->addMethodCall('registerInfo', [sprintf(
+			array_unshift($infoItems, sprintf(
 				'Twig %s',
 				\Twig_Environment::VERSION
-			)]);
+			));
 		}
-		if (class_exists(\Doctrine\ORM\Version::class)) { // Twig version
-			$definition->addMethodCall('registerInfo', [sprintf(
+		if (class_exists(\Doctrine\ORM\Version::class)) { // Doctrine version
+			array_unshift($infoItems, sprintf(
 				'Doctrine ORM %s',
 				\Doctrine\ORM\Version::VERSION
-			)]);
+			));
 		}
+		if (class_exists(\Symfony\Component\HttpKernel\Kernel::class)) { // Symfony version
+			array_unshift($infoItems, sprintf(
+				'Symfony %s',
+				\Symfony\Component\HttpKernel\Kernel::VERSION
+			));
+		}
+
+		$this->processInfoItems($definition, $infoItems);
+		$this->processPanels($definition, $panels);
 
 		$container->setDefinition($serviceId, $definition);
 	}
@@ -138,6 +142,28 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			return static::BLUESCREEN_FACTORY_SERVICE_ID;
 		} else {
 			return (string) $container->getAlias(static::BLUESCREEN_FACTORY_SERVICE_ID);
+		}
+	}
+
+	/**
+	 * @param Definition $definition
+	 * @param string[] $infoItems
+	 */
+	private function processInfoItems(Definition $definition, array $infoItems)
+	{
+		foreach ($infoItems as $info) {
+			$definition->addMethodCall('registerInfo', [$info]);
+		}
+	}
+
+	/**
+	 * @param Definition $definition
+	 * @param callable[] $infoItems
+	 */
+	private function processPanels(Definition $definition, array $panels)
+	{
+		foreach ($panels as $panel) {
+			$definition->addMethodCall('registerPanel', [$panel]);
 		}
 	}
 
