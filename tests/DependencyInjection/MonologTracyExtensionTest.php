@@ -71,11 +71,10 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testFactoryServiceNoAlias()
 	{
+		$this->load();
 		$this->loadConfigs([
 			'blueScreenFactoryNoAlias.yml',
 		]);
-
-		$this->load();
 
 		$this->assertContainerBuilderHasService(MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID);
 
