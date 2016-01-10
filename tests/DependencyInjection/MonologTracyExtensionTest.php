@@ -67,5 +67,4 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->compile();
 	}
 
-
 }
