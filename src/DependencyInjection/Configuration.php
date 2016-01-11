@@ -56,9 +56,9 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 	{
 		$rootNode
 			->children()
-			->scalarNode(static::HANDLER_BUBBLE)
-			->defaultValue(TRUE)
-			->end()
+				->scalarNode(static::HANDLER_BUBBLE)
+					->defaultValue(TRUE)
+				->end()
 			->end();
 	}
 
