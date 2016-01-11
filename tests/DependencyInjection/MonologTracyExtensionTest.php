@@ -77,6 +77,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->load();
 
 		$this->assertContainerBuilderHasService(MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID);
+		$this->assertFalse($this->container->hasAlias(MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID));
 
 		$this->compile();
 	}
