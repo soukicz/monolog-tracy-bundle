@@ -1,0 +1,2 @@
+monolog_tracy:
+    log_directory: %kernel.logs_dir%/logs

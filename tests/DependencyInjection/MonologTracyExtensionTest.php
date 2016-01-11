@@ -18,6 +18,9 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase
 {
 
+	/** @var YamlFileLoader */
+	private $loader;
+
 	protected function setUp()
 	{
 		parent::setUp();
@@ -27,6 +30,8 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 		$this->container->setParameter('kernel.environment', 'test');
 		$this->container->setParameter('kernel.logs_dir', $logDirectory);
+
+		$this->loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/fixtures'));
 	}
 
 	/**
@@ -82,11 +87,53 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->compile();
 	}
 
+	public function testNoDefaultLogDirectory()
+	{
+
+		$this->load([], [
+			'sectionLogDirectory.yml',
+		]);
+
+		$this->assertContainerBuilderHasParameter(
+			MonologTracyExtension::LOG_DIRECTORY_PARAMETER,
+			'%kernel.logs_dir%/logs'
+		);
+
+		$this->compile();
+	}
+
+	/**
+	 * @param mixed[] $configurationValues
+	 * @param string[] $configFiles
+	 */
+	protected function load(array $configurationValues = [], array $configFiles = [])
+	{
+		$this->loadConfigs($configFiles);
+
+		foreach ($this->container->getExtensions() as $extension) {
+			$configs = [];
+			foreach ($this->container->getExtensionConfig($extension->getAlias()) as $config) {
+				$configs[] = $config;
+			}
+			$configs[] = $configurationValues;
+
+			$extension->load($configs, $this->container);
+		}
+	}
+
+	/**
+	 * @param string $alias
+	 * @return mixed[]
+	 */
+	protected function getMinimalConfiguration($alias)
+	{
+		return $this->container->getExtensionConfig($alias);
+	}
+
 	private function loadConfigs(array $configs)
 	{
-		$loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/fixtures'));
 		foreach ($configs as $config) {
-			$loader->load($config);
+			$this->loader->load($config);
 		}
 	}
 

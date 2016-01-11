@@ -1,2 +1,0 @@
-monolog_tracy:
-    tracy_directory: %kernel.logs_dir%/logs
