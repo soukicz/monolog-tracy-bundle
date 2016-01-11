@@ -1,24 +1,16 @@
 services:
-    nella.monolog_tracy.tracy.blue_screen_factory: '@nella.monolog_tracy.tracy.blue_screen_factory.default'
-
     nella.monolog_tracy.tracy.blue_screen_factory.default:
         class: Nella\MonologTracy\Tracy\BlueScreenFactory
-
-    nella.monolog_tracy.blue_screen: '@nella.monolog_tracy.blue_screen.default'
 
     nella.monolog_tracy.blue_screen.default:
         class: Tracy\BlueScreen
         factory: [ '@nella.monolog_tracy.tracy.blue_screen_factory', create ]
-
-    nella.monolog_tracy.tracy.logger_helper: '@nella.monolog_tracy.tracy.logger_helper.default'
 
     nella.monolog_tracy.tracy.logger_helper.default:
         class: Nella\MonologTracy\Tracy\LoggerHelper
         arguments:
             - '@nella.monolog_tracy.blue_screen'
             - %nella.monolog_tracy.log_directory%
-
-    nella.monolog_tracy.blue_screen_handler: '@nella.monolog_tracy.blue_screen_handler.default'
 
     nella.monolog_tracy.blue_screen_handler.default:
         class: Nella\MonologTracy\BlueScreenHandler

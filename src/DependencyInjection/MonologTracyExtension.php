@@ -21,6 +21,8 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 	const BLUESCREEN_FACTORY_SERVICE_ID = 'nella.monolog_tracy.tracy.blue_screen_factory';
 	const BLUESCREEN_HANDLER_SERVICE_ID = 'nella.monolog_tracy.blue_screen_handler';
+	const BLUESCREEN_SERVICE_ID = 'nella.monolog_tracy.blue_screen';
+	const LOGGER_HELPER_SERVICE_ID = 'nella.monolog_tracy.tracy.logger_helper';
 
 	const LOG_DIRECTORY_PARAMETER = 'nella.monolog_tracy.log_directory';
 	const HANDLER_BUBBLE_PARAMETER = 'nella.monolog_tracy.blue_screen_handler.bubble';
@@ -67,6 +69,31 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$container->setParameter(static::LOG_DIRECTORY_PARAMETER, $config[Configuration::LOG_DIRECTORY]);
 		$container->setParameter(static::HANDLER_BUBBLE_PARAMETER, $config[Configuration::HANDLER_BUBBLE]);
 		$container->setParameter(static::HANDLER_LEVEL_PARAMETER, $config[Configuration::HANDLER_LEVEL]);
+
+		if (!$container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
+			$container->setAlias(
+				static::BLUESCREEN_FACTORY_SERVICE_ID,
+				sprintf('%s.default', static::BLUESCREEN_FACTORY_SERVICE_ID)
+			);
+		}
+		if (!$container->hasDefinition(static::BLUESCREEN_HANDLER_SERVICE_ID)) {
+			$container->setAlias(
+				static::BLUESCREEN_HANDLER_SERVICE_ID,
+				sprintf('%s.default', static::BLUESCREEN_HANDLER_SERVICE_ID)
+			);
+		}
+		if (!$container->hasDefinition(static::BLUESCREEN_SERVICE_ID)) {
+			$container->setAlias(
+				static::BLUESCREEN_SERVICE_ID,
+				sprintf('%s.default', static::BLUESCREEN_SERVICE_ID)
+			);
+		}
+		if (!$container->hasDefinition(static::LOGGER_HELPER_SERVICE_ID)) {
+			$container->setAlias(
+				static::LOGGER_HELPER_SERVICE_ID,
+				sprintf('%s.default', static::LOGGER_HELPER_SERVICE_ID)
+			);
+		}
 
 		$this->setupBlueScreenFactory($container, $config[Configuration::INFO_ITEMS], $config[Configuration::PANELS]);
 	}
