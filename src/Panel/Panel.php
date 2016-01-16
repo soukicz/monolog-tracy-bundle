@@ -15,28 +15,28 @@ abstract class Panel
 {
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return bool
 	 */
-	abstract public function isSupported(\Exception $exception);
+	abstract public function isSupported($exception);
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return string
 	 */
-	abstract public function getTab(\Exception $exception);
+	abstract public function getTab($exception);
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return string
 	 */
-	abstract public function getPanel(\Exception $exception);
+	abstract public function getPanel($exception);
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return string[]
 	 */
-	final public function __invoke(\Exception $exception)
+	final public function __invoke($exception)
 	{
 		if (!$this->isSupported($exception)) {
 			return [];
