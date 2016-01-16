@@ -11,6 +11,7 @@
 
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
+use Monolog\Logger;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -112,6 +113,36 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->assertContainerBuilderHasParameter(
 			MonologTracyExtension::HANDLER_BUBBLE_PARAMETER,
 			FALSE
+		);
+
+		$this->compile();
+	}
+
+	public function testNoDefaultHandlerLevel()
+	{
+
+		$this->load([], [
+			'sectionHandlerLevel.yml',
+		]);
+
+		$this->assertContainerBuilderHasParameter(
+			MonologTracyExtension::HANDLER_LEVEL_PARAMETER,
+			Logger::ERROR
+		);
+
+		$this->compile();
+	}
+
+	public function testNoDefaultHandlerLevelAsString()
+	{
+
+		$this->load([], [
+			'sectionHandlerLevelAsString.yml',
+		]);
+
+		$this->assertContainerBuilderHasParameter(
+			MonologTracyExtension::HANDLER_LEVEL_PARAMETER,
+			Logger::ERROR
 		);
 
 		$this->compile();

@@ -1,0 +1,2 @@
+monolog_tracy:
+    handler_level: 400

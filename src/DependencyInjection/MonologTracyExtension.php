@@ -68,7 +68,14 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 		$container->setParameter(static::LOG_DIRECTORY_PARAMETER, $config[Configuration::LOG_DIRECTORY]);
 		$container->setParameter(static::HANDLER_BUBBLE_PARAMETER, $config[Configuration::HANDLER_BUBBLE]);
-		$container->setParameter(static::HANDLER_LEVEL_PARAMETER, $config[Configuration::HANDLER_LEVEL]);
+		if (is_int($config[Configuration::HANDLER_LEVEL])) {
+			$container->setParameter(static::HANDLER_LEVEL_PARAMETER, $config[Configuration::HANDLER_LEVEL]);
+		} else {
+			$container->setParameter(
+				static::HANDLER_LEVEL_PARAMETER,
+				constant(sprintf('Monolog\Logger::%s', $config[Configuration::HANDLER_LEVEL]))
+			);
+		}
 
 		if (!$container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
 			$container->setAlias(
