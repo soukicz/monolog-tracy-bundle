@@ -48,7 +48,7 @@ public function registerBundles()
 monolog:
     handlers:
         blueScreen:
-            type: tracyBlueScreenP
+            type: tracyBlueScreen
 ```
 
 ## Configuration
