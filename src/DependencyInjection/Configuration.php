@@ -24,7 +24,7 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 	const HANDLER_BUBBLE = 'handler_bubble';
 	const HANDLER_LEVEL = 'handler_level';
 
-	const INFO_ITEMS = 'infoItems';
+	const INFO_ITEMS = 'info_items';
 	const PANELS = 'panels';
 
 	public function getConfigTreeBuilder()
