@@ -152,7 +152,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 	{
 
 		$this->load([], [
-			'sectionInfos.yml',
+			'sectionInfoItems.yml',
 		]);
 
 		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
