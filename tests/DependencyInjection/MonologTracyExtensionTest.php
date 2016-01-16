@@ -190,6 +190,19 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->assertInstanceOf(BlueScreenHandler::class, $handler);
 	}
 
+	public function testHandlerInstanceWithPanel()
+	{
+		$this->load([], [
+			'sectionPanels.yml',
+		]);
+		$this->compile();
+
+		@mkdir($this->container->getParameter(MonologTracyExtension::LOG_DIRECTORY_PARAMETER), 0777, TRUE);
+
+		$handler = $this->container->get(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID);
+		$this->assertInstanceOf(BlueScreenHandler::class, $handler);
+	}
+
 	/**
 	 * @param mixed[] $configurationValues
 	 * @param string[] $configFiles
