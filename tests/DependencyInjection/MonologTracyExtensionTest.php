@@ -90,7 +90,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testNoDefaultLogDirectory()
 	{
-
 		$this->load([], [
 			'sectionLogDirectory.yml',
 		]);
@@ -105,7 +104,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testNoDefaultHandlerBubble()
 	{
-
 		$this->load([], [
 			'sectionHandlerBubble.yml',
 		]);
@@ -120,7 +118,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testNoDefaultHandlerLevel()
 	{
-
 		$this->load([], [
 			'sectionHandlerLevel.yml',
 		]);
@@ -135,7 +132,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testNoDefaultHandlerLevelAsString()
 	{
-
 		$this->load([], [
 			'sectionHandlerLevelAsString.yml',
 		]);
@@ -150,7 +146,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testInfoItems()
 	{
-
 		$this->load([], [
 			'sectionInfoItems.yml',
 		]);
@@ -159,7 +154,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerInfo',
 			[
-				'Foo'
+				'Foo',
 			]
 		);
 
@@ -168,7 +163,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testPanels()
 	{
-
 		$this->load([], [
 			'sectionPanels.yml',
 		]);
@@ -177,7 +171,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				'@nella.monolog_tracy.panel.test_panel'
+				'@nella.monolog_tracy.panel.test_panel',
 			]
 		);
 
