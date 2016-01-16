@@ -11,7 +11,6 @@
 
 namespace Nella\MonologTracyBundle\Panel;
 
-use Mockery;
 use Tracy\Dumper;
 
 class PanelTest extends \Nella\MonologTracyBundle\TestCase
@@ -34,7 +33,7 @@ class PanelTest extends \Nella\MonologTracyBundle\TestCase
 
 	public function testSupportedException()
 	{
-		$exception = Mockery::mock(\Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException::class);
+		$exception = new \Nella\MonologTracyBundle\DependencyInjection\MissingMonologExtensionException();
 
 		$output = call_user_func($this->panel, $exception);
 

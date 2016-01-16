@@ -11,15 +11,7 @@
 
 namespace Nella\MonologTracyBundle;
 
-use Mockery;
-
 abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
-
-	protected function tearDown()
-	{
-		parent::tearDown();
-		Mockery::close();
-	}
 
 }
