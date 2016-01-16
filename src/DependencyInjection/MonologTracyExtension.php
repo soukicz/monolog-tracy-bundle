@@ -75,7 +75,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		} else {
 			$container->setParameter(
 				static::HANDLER_LEVEL_PARAMETER,
-				constant(sprintf('Monolog\Logger::%s', $config[Configuration::HANDLER_LEVEL]))
+				constant(sprintf('Monolog\Logger::%s', strtoupper($config[Configuration::HANDLER_LEVEL])))
 			);
 		}
 
