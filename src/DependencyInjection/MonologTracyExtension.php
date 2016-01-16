@@ -28,6 +28,8 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 	const HANDLER_BUBBLE_PARAMETER = 'nella.monolog_tracy.blue_screen_handler.bubble';
 	const HANDLER_LEVEL_PARAMETER = 'nella.monolog_tracy.blue_screen_handler.level';
 
+	const HANDLER_NAME = 'tracyBlueScreen';
+
 	/**
 	 * Steals Monolog configuration, goes through handlers and adjusts config
 	 * of blue screen handlers.
@@ -49,7 +51,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			}
 
 			$handlers = array_filter($config['handlers'], function (array $handler) {
-				return is_array($handler) && isset($handler['type']) && $handler['type'] === 'tracyBlueScreen';
+				return is_array($handler) && isset($handler['type']) && $handler['type'] === static::HANDLER_NAME;
 			});
 
 			// Create config
