@@ -102,6 +102,21 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->compile();
 	}
 
+	public function testNoDefaultHandlerBubble()
+	{
+
+		$this->load([], [
+			'sectionHandlerBubble.yml',
+		]);
+
+		$this->assertContainerBuilderHasParameter(
+			MonologTracyExtension::HANDLER_BUBBLE_PARAMETER,
+			FALSE
+		);
+
+		$this->compile();
+	}
+
 	/**
 	 * @param mixed[] $configurationValues
 	 * @param string[] $configFiles
@@ -119,15 +134,6 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 			$extension->load($configs, $this->container);
 		}
-	}
-
-	/**
-	 * @param string $alias
-	 * @return mixed[]
-	 */
-	protected function getMinimalConfiguration($alias)
-	{
-		return $this->container->getExtensionConfig($alias);
 	}
 
 	private function loadConfigs(array $configs)
