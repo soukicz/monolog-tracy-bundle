@@ -12,6 +12,7 @@
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Monolog\Logger;
+use Nella\MonologTracy\BlueScreenHandler;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -176,6 +177,17 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		);
 
 		$this->compile();
+	}
+
+	public function testHandlerInstance()
+	{
+		$this->load();
+		$this->compile();
+
+		@mkdir($this->container->getParameter(MonologTracyExtension::LOG_DIRECTORY_PARAMETER), 0777, TRUE);
+
+		$handler = $this->container->get(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID);
+		$this->assertInstanceOf(BlueScreenHandler::class, $handler);
 	}
 
 	/**
