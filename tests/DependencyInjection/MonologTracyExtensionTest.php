@@ -148,6 +148,24 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->compile();
 	}
 
+	public function testInfoItems()
+	{
+
+		$this->load([], [
+			'sectionInfos.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerInfo',
+			[
+				'Foo'
+			]
+		);
+
+		$this->compile();
+	}
+
 	/**
 	 * @param mixed[] $configurationValues
 	 * @param string[] $configFiles

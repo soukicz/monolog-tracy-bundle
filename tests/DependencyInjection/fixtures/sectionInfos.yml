@@ -1,0 +1,4 @@
+monolog_tracy:
+    infoItems:
+        - Foo
+        - Bar
