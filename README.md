@@ -1,4 +1,4 @@
-# nella/monolog-tracy-bundle
+# [Tracy](https://tracy.nette.org) BlueScreen handler for [Symfony](https://symfony.com/) ([Monolog](https://github.com/Seldaek/monolog))
 
 [![Build Status](https://img.shields.io/travis/nella/monolog-tracy-bundle/master.svg?style=flat-square)](https://travis-ci.org/nella/monolog-tracy-bundle)
 [![Code Coverage](https://img.shields.io/coveralls/nella/monolog-tracy-bundle.svg?style=flat-square)](https://coveralls.io/r/nella/monolog-tracy-bundle)
@@ -9,12 +9,14 @@
 [![HHVM Status](https://img.shields.io/hhvm/nella/monolog-tracy-bundle.svg?style=flat-square)](http://hhvm.h4cc.de/package/nella/monolog-tracy-bundle)
 
 
-Bundle providing mainly integration of [Tracy](https://github.com/nette/tracy) into [Symfony](https://symfony.com).
+Bundle providing mainly integration of [Tracy](https://tracy.nette.org/) into [Symfony](https://symfony.com).
 
-## Tracy capabilities
+Are you looking for _Monolog_ integration only? There is [Monolog-Tracy](https://github.com/nella/monolog-tracy).
+
+## Tracy - Blue Screen Handler
 
 Long story short, Tracy helps you debug your applications when an error occurs providing you lots of information about what just happened. Check out
-[live example](http://nette.github.io/tracy/tracy-exception.html) and [Tracy documentation](https://github.com/nette/tracy#visualization-of-errors-and-exceptions)
+[live example](http://nette.github.io/tracy/tracy-exception.html) and [Tracy documentation](https://tracy.nette.org/)
 to see the full power of this tool.
 
 To replace default Symfony Bluescreen you can use [Tracy Bluescreen Bundle](https://github.com/VasekPurchart/Tracy-Blue-Screen-Bundle)
@@ -25,7 +27,7 @@ fully compatible with this library.
 Using  [Composer](http://getcomposer.org/):
 
 ```sh
-$ composer require nella/monolog-tracy-bundle:~0.1.0
+$ composer require nella/monolog-tracy-bundle
 ```
 
 ### Register Bundle
@@ -36,7 +38,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
-        new Nella\MonologTracyBundle\MonologTracyBundle(), // what a terrible name!
+        new Nella\MonologTracyBundle\MonologTracyBundle(),
     );
 }
 ```
@@ -46,23 +48,27 @@ public function registerBundles()
 monolog:
     handlers:
         blueScreen:
-            type: blue screen
+            type: tracyBlueScreenP
 ```
 
-## Profit!
-Any error/exception making it to the top is automatically saved in `%kernel.logs_dir%/blueScreen`. You can easily change the log directory,
+## Configuration
+Any error/exception making it to the top is automatically saved in `%kernel.logs_dir%/tracy`. You can easily change the log directory,
 see full configuration options below:
 
 ```yml
 # config.yml
-monolog:
-    handlers:
-        blueScreen:
-            type: blue screen
-            path: %kernel.logs_dir%/blueScreen # must exist
-            level: debug
-            bubble: true
+monolog_tracy:
+	log_directory: %kernel.logs_dir%/tracy # default
+	handler_level: DEBUG # or 100 default - you can use int or constant name
+	handler_bubble: true # default
+	info_items:
+		- Symfony 3.0.1 # default if HttpKernel is present
+		- Doctrine ORM 2.5.2 # default if Doctrine ORM is present
+		- Twig 1.23.1 # default if Twig is present
+	panels: # no default panels
+		- test.nella.monolog_tracy_bundle.panel.test_panel # callable ([class, method], [@service, method], @service, class::service)
 ```
+
 This works out of the box and also in production mode!
 
 ## Tips
