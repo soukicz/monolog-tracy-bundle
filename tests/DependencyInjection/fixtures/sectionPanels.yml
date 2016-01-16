@@ -1,0 +1,7 @@
+services:
+    nella.monolog_tracy.panel.test_panel:
+        class: Nella\MonologTracyBundle\Panel\TestPanel
+
+monolog_tracy:
+    panels:
+        - '@nella.monolog_tracy.panel.test_panel'

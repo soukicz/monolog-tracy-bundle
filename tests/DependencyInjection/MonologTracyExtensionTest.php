@@ -166,6 +166,24 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->compile();
 	}
 
+	public function testPanels()
+	{
+
+		$this->load([], [
+			'sectionPanels.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerPanel',
+			[
+				'@nella.monolog_tracy.panel.test_panel'
+			]
+		);
+
+		$this->compile();
+	}
+
 	/**
 	 * @param mixed[] $configurationValues
 	 * @param string[] $configFiles
