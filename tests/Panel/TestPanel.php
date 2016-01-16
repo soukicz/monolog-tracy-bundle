@@ -17,10 +17,10 @@ class TestPanel extends \Nella\MonologTracyBundle\Panel\Panel
 {
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return bool
 	 */
-	public function isSupported(\Exception $exception)
+	public function isSupported($exception)
 	{
 		if ($exception instanceof \Nella\MonologTracyBundle\Exception) {
 			return TRUE;
@@ -30,19 +30,19 @@ class TestPanel extends \Nella\MonologTracyBundle\Panel\Panel
 	}
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return string
 	 */
-	public function getTab(\Exception $exception)
+	public function getTab($exception)
 	{
 		return get_class($exception);
 	}
 
 	/**
-	 * @param \Exception $exception
+	 * @param \Exception|\Throwable $exception
 	 * @return string
 	 */
-	public function getPanel(\Exception $exception)
+	public function getPanel($exception)
 	{
 		return Dumper::toHtml($exception);
 	}
