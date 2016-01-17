@@ -1,6 +1,7 @@
 # [Tracy](https://tracy.nette.org) BlueScreen handler for [Symfony](https://symfony.com/) ([Monolog](https://github.com/Seldaek/monolog))
 
 [![Build Status](https://img.shields.io/travis/nella/monolog-tracy-bundle/master.svg?style=flat-square)](https://travis-ci.org/nella/monolog-tracy-bundle)
+[![Windows Build Status](https://img.shields.io/appveyor/ci/Vrtak-CZ/monolog-tracy-bundle/master.svg?style=flat-square)](https://ci.appveyor.com/project/Vrtak-CZ/monolog-tracy-bundle)
 [![Code Coverage](https://img.shields.io/coveralls/nella/monolog-tracy-bundle.svg?style=flat-square)](https://coveralls.io/r/nella/monolog-tracy-bundle)
 [![SensioLabsInsight Status](https://img.shields.io/sensiolabs/i/76c87979-7eda-4f6b-94a5-07bd54259d5f.svg?style=flat-square)](https://insight.sensiolabs.com/projects/76c87979-7eda-4f6b-94a5-07bd54259d5f)
 [![Latest Stable Version](https://img.shields.io/packagist/v/nella/monolog-tracy-bundle.svg?style=flat-square)](https://packagist.org/packages/nella/monolog-tracy-bundle)
