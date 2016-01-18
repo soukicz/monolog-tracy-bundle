@@ -183,17 +183,16 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testCollapsePaths()
 	{
-		if (!method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
-			$this->setExpectedException(
-				\Nella\MonologTracyBundle\DependencyInjection\UnsupportedException::class,
-				'Sorry "collapse_paths" are supported only for nella/monolog-tracy 1.2+'
-			);
-			$this->markTestIncomplete('nella/monolog-tracy 1.2 feature');
+		try {
+			$this->load([], [
+				'sectionCollapsePaths.yml',
+			]);
+		} catch (\Nella\MonologTracyBundle\DependencyInjection\UnsupportedException $e) {
+			if (!method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
+				$this->assertSame('Sorry "collapse_paths" are supported only for nella/monolog-tracy 1.2+', $e->getMessage());
+				$this->markTestIncomplete('nella/monolog-tracy 1.2 feature');
+			}
 		}
-
-		$this->load([], [
-			'sectionCollapsePaths.yml',
-		]);
 
 		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
