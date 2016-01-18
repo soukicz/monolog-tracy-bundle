@@ -68,6 +68,23 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/config'));
 		$loader->load('services.yml');
 
+		$this->setupParameters($container, $config);
+		$this->setupAliases($container);
+
+		$this->setupBlueScreenFactory(
+			$container,
+			$config[Configuration::INFO_ITEMS],
+			$config[Configuration::PANELS],
+			$config[Configuration::COLLAPSE_PATHS]
+		);
+	}
+
+	/**
+	 * @param ContainerBuilder $container
+	 * @param mixed[] $config
+	 */
+	private function setupParameters(ContainerBuilder $container, array $config)
+	{
 		$container->setParameter(static::LOG_DIRECTORY_PARAMETER, $config[Configuration::LOG_DIRECTORY]);
 		$container->setParameter(static::HANDLER_BUBBLE_PARAMETER, $config[Configuration::HANDLER_BUBBLE]);
 		if (is_int($config[Configuration::HANDLER_LEVEL])) {
@@ -78,7 +95,13 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 				constant(sprintf('Monolog\Logger::%s', strtoupper($config[Configuration::HANDLER_LEVEL])))
 			);
 		}
+	}
 
+	/**
+	 * @param ContainerBuilder $container
+	 */
+	private function setupAliases(ContainerBuilder $container)
+	{
 		if (!$container->hasDefinition(static::BLUESCREEN_FACTORY_SERVICE_ID)) {
 			$container->setAlias(
 				static::BLUESCREEN_FACTORY_SERVICE_ID,
@@ -103,13 +126,6 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 				sprintf('%s.default', static::LOGGER_HELPER_SERVICE_ID)
 			);
 		}
-
-		$this->setupBlueScreenFactory(
-			$container,
-			$config[Configuration::INFO_ITEMS],
-			$config[Configuration::PANELS],
-			$config[Configuration::COLLAPSE_PATHS]
-		);
 	}
 
 	private function createTemporaryHandlerService(ContainerBuilder $container)
