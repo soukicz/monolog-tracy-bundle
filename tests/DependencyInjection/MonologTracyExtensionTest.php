@@ -17,6 +17,7 @@ use Nella\MonologTracy\Tracy\BlueScreenFactory;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase
 {
@@ -174,11 +175,72 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				'@nella.monolog_tracy.panel.test_panel',
+				new Reference('nella.monolog_tracy.panel.test_panel'),
 			]
 		);
 
 		$this->compile();
+	}
+
+	public function testPanelsArrayWithService()
+	{
+		$this->load([], [
+			'sectionPanelsArrayWithService.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerPanel',
+			[
+				[new Reference('nella.monolog_tracy.panel.test_panel'), '__invoke']
+			]
+		);
+
+		$this->compile();
+	}
+
+	public function testPanelsArray()
+	{
+		$this->load([], [
+			'sectionPanelsArray.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerPanel',
+			[
+				['Nella\MonologTracyBundle\Panel\TestPanel', 'invoke']
+			]
+		);
+
+		$this->compile();
+	}
+
+	public function testPanelsString()
+	{
+		$this->load([], [
+			'sectionPanelsString.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerPanel',
+			[
+				'Nella\MonologTracyBundle\Panel\TestPanel::invoke'
+			]
+		);
+
+		$this->compile();
+	}
+
+	/**
+	 * @expectedException \Nella\MonologTracyBundle\DependencyInjection\InvalidPanelException
+	 */
+	public function testPanelsInvalid()
+	{
+		$this->load([], [
+			'sectionPanelsInvalid.yml',
+		]);
 	}
 
 	public function testCollapsePaths()

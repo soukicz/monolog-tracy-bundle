@@ -16,6 +16,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Reference;
 
 class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension implements \Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface
 {
@@ -237,7 +238,30 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 	private function processPanels(Definition $definition, array $panels)
 	{
 		foreach ($panels as $panel) {
-			$definition->addMethodCall('registerPanel', [$panel]);
+			if (is_string($panel) && strncmp($panel, '@', 1) === 0) {
+				$callback = new Reference(substr($panel, 1));
+			} elseif (is_string($panel) && strpos($panel, '::') !== FALSE) {
+				$callback = $panel;
+			} elseif (is_array($panel) && count($panel) === 2) {
+				list($resource, $method) = $panel;
+				if (is_string($resource) && strncmp($resource, '@', 1) === 0) {
+					$callback = [
+						new Reference(substr($resource, 1)),
+						$method,
+					];
+				} elseif (is_string($resource)) {
+					$callback = [
+						$resource,
+						$method,
+					];
+				}
+			}
+
+			if (!isset($callback)) {
+				throw new \Nella\MonologTracyBundle\DependencyInjection\InvalidPanelException($panel);
+			}
+
+			$definition->addMethodCall('registerPanel', [$callback]);
 		}
 	}
 

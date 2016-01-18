@@ -47,4 +47,14 @@ class TestPanel extends \Nella\MonologTracyBundle\Panel\Panel
 		return Dumper::toHtml($exception);
 	}
 
+	/**
+	 * @param \Exception|\Throwable $exception
+	 * @return string[]
+	 */
+	public static function invoke($exception)
+	{
+		$instance = new static();
+		return $instance->__invoke($exception);
+	}
+
 }

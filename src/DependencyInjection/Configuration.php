@@ -91,7 +91,7 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 			->fixXmlConfig('panel')
 			->children()
 				->arrayNode(static::PANELS)
-					->prototype('scalar')
+					->prototype('variable')
 				->end()
 			->end();
 	}

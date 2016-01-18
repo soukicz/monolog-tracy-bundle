@@ -1,0 +1,3 @@
+monolog_tracy:
+    panels:
+        - [Nella\MonologTracyBundle\Panel\TestPanel, invoke]
