@@ -192,7 +192,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				[new Reference('nella.monolog_tracy.panel.test_panel'), '__invoke']
+				[new Reference('nella.monolog_tracy.panel.test_panel'), '__invoke'],
 			]
 		);
 
@@ -209,7 +209,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				['Nella\MonologTracyBundle\Panel\TestPanel', 'invoke']
+				['Nella\MonologTracyBundle\Panel\TestPanel', 'invoke'],
 			]
 		);
 
@@ -226,7 +226,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				'Nella\MonologTracyBundle\Panel\TestPanel::invoke'
+				'Nella\MonologTracyBundle\Panel\TestPanel::invoke',
 			]
 		);
 
