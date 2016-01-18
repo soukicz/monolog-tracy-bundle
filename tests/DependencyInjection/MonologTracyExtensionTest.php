@@ -183,7 +183,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testCollapsePaths()
 	{
-		if (method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
+		if (!method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
 			$this->setExpectedException(
 				\Nella\MonologTracyBundle\DependencyInjection\UnsupportedException::class,
 				'Sorry "collapse_paths" are supported only for nella/monolog-tracy 1.2+'
