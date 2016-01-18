@@ -32,7 +32,7 @@
 	},
 	"require": {
 		"php": "~5.6|~7.0",
-		"nella/monolog-tracy": "~1.2",
+		"nella/monolog-tracy": "~1.1",
 		"symfony/config": "~2.6|~3.0",
 		"symfony/dependency-injection": "~2.6|~3.0",
 		"symfony/expression-language": "~2.6|~3.0",

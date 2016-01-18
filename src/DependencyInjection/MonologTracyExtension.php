@@ -11,6 +11,7 @@
 
 namespace Nella\MonologTracyBundle\DependencyInjection;
 
+use Nella\MonologTracy\Tracy\BlueScreenFactory;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -166,7 +167,13 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 		$this->processInfoItems($definition, $infoItems);
 		$this->processPanels($definition, $config[Configuration::PANELS]);
-		$this->processCollapsePaths($definition, $config[Configuration::COLLAPSE_PATHS]);
+		if (method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
+			$this->processCollapsePaths($definition, $config[Configuration::COLLAPSE_PATHS]);
+		} elseif (count($config[Configuration::COLLAPSE_PATHS]) > 0) {
+			throw new \Nella\MonologTracyBundle\DependencyInjection\UnsupportedException(
+				'Sorry "collapse_paths" are supported only for nella/monolog-tracy 1.2+'
+			);
+		}
 
 		$container->setDefinition($serviceId, $definition);
 	}
