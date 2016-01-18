@@ -169,7 +169,21 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$serviceId = $this->getBlueScreenFactoryServiceId($container);
 		$definition = $container->getDefinition($serviceId);
 
-		// Default info
+		$infoItems = $this->setupDefaultInfoItems($infoItems);
+
+		$this->processInfoItems($definition, $infoItems);
+		$this->processPanels($definition, $panels);
+		$this->processCollapsePaths($definition, $collapsePaths);
+
+		$container->setDefinition($serviceId, $definition);
+	}
+
+	/**
+	 * @param string[] $infoItems
+	 * @return string[]
+	 */
+	private function setupDefaultInfoItems(array $infoItems)
+	{
 		if (class_exists(\Twig_Environment::class)) { // Twig version
 			array_unshift($infoItems, sprintf(
 				'Twig %s',
@@ -189,11 +203,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			));
 		}
 
-		$this->processInfoItems($definition, $infoItems);
-		$this->processPanels($definition, $panels);
-		$this->processCollapsePaths($definition, $collapsePaths);
-
-		$container->setDefinition($serviceId, $definition);
+		return $infoItems;
 	}
 
 	/**
