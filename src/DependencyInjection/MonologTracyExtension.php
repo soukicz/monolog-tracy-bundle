@@ -71,12 +71,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		$this->setupParameters($container, $config);
 		$this->setupAliases($container);
 
-		$this->setupBlueScreenFactory(
-			$container,
-			$config[Configuration::INFO_ITEMS],
-			$config[Configuration::PANELS],
-			$config[Configuration::COLLAPSE_PATHS]
-		);
+		$this->setupBlueScreenFactory($container, $config);
 	}
 
 	/**
@@ -160,20 +155,18 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 	/**
 	 * @param ContainerBuilder $container
-	 * @param string[] $infoItems
-	 * @param mixed[) $panels
-	 * @param string[] $collapsePaths
+	 * @param mixed[) $config
 	 */
-	private function setupBlueScreenFactory(ContainerBuilder $container, array $infoItems, array $panels, array $collapsePaths)
+	private function setupBlueScreenFactory(ContainerBuilder $container, array $config)
 	{
 		$serviceId = $this->getBlueScreenFactoryServiceId($container);
 		$definition = $container->getDefinition($serviceId);
 
-		$infoItems = $this->setupDefaultInfoItems($infoItems);
+		$infoItems = $this->setupDefaultInfoItems($config[Configuration::INFO_ITEMS]);
 
 		$this->processInfoItems($definition, $infoItems);
-		$this->processPanels($definition, $panels);
-		$this->processCollapsePaths($definition, $collapsePaths);
+		$this->processPanels($definition, $config[Configuration::PANELS]);
+		$this->processCollapsePaths($definition, $config[Configuration::COLLAPSE_PATHS]);
 
 		$container->setDefinition($serviceId, $definition);
 	}
