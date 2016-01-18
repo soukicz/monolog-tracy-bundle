@@ -69,6 +69,8 @@ monolog_tracy:
 		- Twig 1.23.1 # default if Twig is present
 	panels: # no default panels
 		- test.nella.monolog_tracy_bundle.panel.test_panel # callable ([class, method], [@service, method], @service, class::service)
+	collapse_paths: # no default collapse paths
+		- %kernel.root_dir%/vendor # TIP
 ```
 
 This works out of the box and also in production mode!

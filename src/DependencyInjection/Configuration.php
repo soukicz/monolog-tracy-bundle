@@ -26,6 +26,7 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 
 	const INFO_ITEMS = 'info_items';
 	const PANELS = 'panels';
+	const COLLAPSE_PATHS = 'collapse_paths';
 
 	public function getConfigTreeBuilder()
 	{
@@ -38,6 +39,7 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 		$this->addHandlerLevel($rootNode);
 		$this->addInfoItems($rootNode);
 		$this->addPanels($rootNode);
+		$this->addCollapsePaths($rootNode);
 
 		return $treeBuilder;
 	}
@@ -89,6 +91,17 @@ class Configuration implements \Symfony\Component\Config\Definition\Configuratio
 			->fixXmlConfig('panel')
 			->children()
 				->arrayNode(static::PANELS)
+					->prototype('scalar')
+				->end()
+			->end();
+	}
+
+	private function addCollapsePaths(ArrayNodeDefinition $rootNode)
+	{
+		$rootNode
+			->fixXmlConfig('collapse_path')
+			->children()
+				->arrayNode(static::COLLAPSE_PATHS)
 					->prototype('scalar')
 				->end()
 			->end();

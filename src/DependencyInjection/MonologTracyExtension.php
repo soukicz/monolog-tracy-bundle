@@ -104,7 +104,12 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 			);
 		}
 
-		$this->setupBlueScreenFactory($container, $config[Configuration::INFO_ITEMS], $config[Configuration::PANELS]);
+		$this->setupBlueScreenFactory(
+			$container,
+			$config[Configuration::INFO_ITEMS],
+			$config[Configuration::PANELS],
+			$config[Configuration::COLLAPSE_PATHS]
+		);
 	}
 
 	private function createTemporaryHandlerService(ContainerBuilder $container)
@@ -137,7 +142,13 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 		];
 	}
 
-	private function setupBlueScreenFactory(ContainerBuilder $container, $infoItems, $panels)
+	/**
+	 * @param ContainerBuilder $container
+	 * @param string[] $infoItems
+	 * @param mixed[) $panels
+	 * @param string[] $collapsePaths
+	 */
+	private function setupBlueScreenFactory(ContainerBuilder $container, array $infoItems, array $panels, array $collapsePaths)
 	{
 		$serviceId = $this->getBlueScreenFactoryServiceId($container);
 		$definition = $container->getDefinition($serviceId);
@@ -164,6 +175,7 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 
 		$this->processInfoItems($definition, $infoItems);
 		$this->processPanels($definition, $panels);
+		$this->processCollapsePaths($definition, $collapsePaths);
 
 		$container->setDefinition($serviceId, $definition);
 	}
@@ -200,6 +212,17 @@ class MonologTracyExtension extends \Symfony\Component\HttpKernel\DependencyInje
 	{
 		foreach ($panels as $panel) {
 			$definition->addMethodCall('registerPanel', [$panel]);
+		}
+	}
+
+	/**
+	 * @param Definition $definition
+	 * @param string[] $collapsePaths
+	 */
+	private function processCollapsePaths(Definition $definition, array $collapsePaths)
+	{
+		foreach ($collapsePaths as $collapsePath) {
+			$definition->addMethodCall('registerCollapsePath', [$collapsePath]);
 		}
 	}
 

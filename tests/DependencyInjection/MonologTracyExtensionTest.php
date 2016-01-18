@@ -31,6 +31,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		@mkdir($logDirectory);
 
 		$this->container->setParameter('kernel.environment', 'test');
+		$this->container->setParameter('kernel.root_dir', __DIR__ . '/../..');
 		$this->container->setParameter('kernel.logs_dir', $logDirectory);
 
 		$this->loader = new YamlFileLoader($this->container, new FileLocator(__DIR__ . '/fixtures'));
@@ -173,6 +174,23 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			'registerPanel',
 			[
 				'@nella.monolog_tracy.panel.test_panel',
+			]
+		);
+
+		$this->compile();
+	}
+
+	public function testCollapsePaths()
+	{
+		$this->load([], [
+			'sectionCollapsePaths.yml',
+		]);
+
+		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
+			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
+			'registerCollapsePath',
+			[
+				'%kernel.root_dir%/vendor',
 			]
 		);
 
