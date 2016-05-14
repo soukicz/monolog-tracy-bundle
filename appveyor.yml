@@ -7,8 +7,8 @@ matrix:
 
 cache:
   - c:\php -> appveyor.yml
-  - c:\projects\monolog-tracy-build\bin -> appveyor.yml
-  - c:\projects\monolog-tracy-build\vendor -> appveyor.yml
+  - c:\projects\monolog-tracy-build\bin -> composer.lock
+  - c:\projects\monolog-tracy-build\vendor -> composer.lock
 
 init:
   - SET PATH=c:\php;%PATH%
