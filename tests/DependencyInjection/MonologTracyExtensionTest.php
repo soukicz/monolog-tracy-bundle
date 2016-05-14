@@ -13,7 +13,6 @@ namespace Nella\MonologTracyBundle\DependencyInjection;
 
 use Monolog\Logger;
 use Nella\MonologTracy\BlueScreenHandler;
-use Nella\MonologTracy\Tracy\BlueScreenFactory;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -255,18 +254,9 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 
 	public function testCollapsePaths()
 	{
-		try {
-			$this->load([], [
-				'sectionCollapsePaths.yml',
-			]);
-		} catch (\Nella\MonologTracyBundle\DependencyInjection\UnsupportedException $e) {
-			if (!method_exists(BlueScreenFactory::class, 'registerCollapsePath')) {
-				$this->assertSame('Sorry "collapse_paths" are supported only for nella/monolog-tracy 1.2+', $e->getMessage());
-				return;
-			} else {
-				throw $e;
-			}
-		}
+		$this->load([], [
+			'sectionCollapsePaths.yml',
+		]);
 
 		$this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
