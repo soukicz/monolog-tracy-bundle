@@ -1,6 +1,6 @@
 services:
     nella.monolog_tracy.panel.test_panel:
-        class: Nella\MonologTracyBundle\Panel\TestPanel
+        class: Nella\MonologTracyBundle\DependencyInjection\TestPanel
 
 monolog_tracy:
     panels:

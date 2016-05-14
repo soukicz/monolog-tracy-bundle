@@ -209,7 +209,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				['Nella\MonologTracyBundle\Panel\TestPanel', 'invoke'],
+				['Nella\MonologTracyBundle\DependencyInjection\TestPanel', 'invoke'],
 			]
 		);
 
@@ -226,7 +226,7 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 			MonologTracyExtension::BLUESCREEN_FACTORY_SERVICE_ID,
 			'registerPanel',
 			[
-				'Nella\MonologTracyBundle\Panel\TestPanel::invoke',
+				'Nella\MonologTracyBundle\DependencyInjection\TestPanel::invoke',
 			]
 		);
 
@@ -240,6 +240,16 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 	{
 		$this->load([], [
 			'sectionPanelsInvalid.yml',
+		]);
+	}
+
+	/**
+	 * @expectedException \Nella\MonologTracyBundle\DependencyInjection\InvalidPanelException
+	 */
+	public function testPanelsInvalid2()
+	{
+		$this->load([], [
+			'sectionPanelsInvalid2.yml',
 		]);
 	}
 
