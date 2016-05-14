@@ -11,41 +11,10 @@
 
 namespace Nella\MonologTracyBundle\Panel;
 
-abstract class Panel
+/**
+ * @deprecated use \Nella\MonologTracy\Tracy\Panel\Panel
+ */
+abstract class Panel extends \Nella\MonologTracy\Tracy\Panel\Panel
 {
-
-	/**
-	 * @param \Exception|\Throwable $exception
-	 * @return bool
-	 */
-	abstract public function isSupported($exception);
-
-	/**
-	 * @param \Exception|\Throwable $exception
-	 * @return string
-	 */
-	abstract public function getTab($exception);
-
-	/**
-	 * @param \Exception|\Throwable $exception
-	 * @return string
-	 */
-	abstract public function getPanel($exception);
-
-	/**
-	 * @param \Exception|\Throwable $exception
-	 * @return string[]
-	 */
-	final public function __invoke($exception)
-	{
-		if (!$this->isSupported($exception)) {
-			return [];
-		}
-
-		return [
-			'tab' => $this->getTab($exception),
-			'panel' => $this->getPanel($exception),
-		];
-	}
 
 }
