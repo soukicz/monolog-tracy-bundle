@@ -10,6 +10,7 @@
 [![HHVM Status](https://img.shields.io/hhvm/nella/monolog-tracy-bundle.svg?style=flat-square)](http://hhvm.h4cc.de/package/nella/monolog-tracy-bundle)
 ![License MIT, GPL-2, GPL-3](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
+Sponzored by [Shipito LLC](https://www.shipito.com).
 
 Bundle providing mainly integration of [Tracy](https://tracy.nette.org/) into [Symfony](https://symfony.com).
 
