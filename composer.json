@@ -46,8 +46,8 @@
 		"matthiasnoback/symfony-dependency-injection-test": "0.7.6",
 		"nella/coding-standard": "4.2.1",
 		"phing/phing": "2.14.0",
-		"phpunit/phpunit": "5.3.2",
-		"twig/twig": "1.24.0"
+		"phpunit/phpunit": "5.4.5",
+		"twig/twig": "1.24.1"
 	},
 	"config": {
 		"bin-dir": "bin"
