@@ -9,12 +9,12 @@ services:
     nella.monolog_tracy.tracy.logger_helper.default:
         class: Nella\MonologTracy\Tracy\LoggerHelper
         arguments:
-            - %nella.monolog_tracy.log_directory%
+            - '%nella.monolog_tracy.log_directory%'
             - '@nella.monolog_tracy.blue_screen'
 
     nella.monolog_tracy.blue_screen_handler.default:
         class: Nella\MonologTracy\BlueScreenHandler
         arguments:
             - '@nella.monolog_tracy.tracy.logger_helper'
-            - %nella.monolog_tracy.blue_screen_handler.level%
-            - %nella.monolog_tracy.blue_screen_handler.bubble%
+            - '%nella.monolog_tracy.blue_screen_handler.level%'
+            - '%nella.monolog_tracy.blue_screen_handler.bubble%'
