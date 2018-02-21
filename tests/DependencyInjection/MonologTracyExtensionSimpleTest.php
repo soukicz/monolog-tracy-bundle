@@ -116,6 +116,9 @@ class MonologTracyExtensionSimpleTest extends \Nella\MonologTracyBundle\TestCase
 		$configs = $this->container->getExtensionConfig($extension);
 		$config = [];
 		foreach ($configs as $tmp) {
+			if (!is_array($tmp)) {
+				continue;
+			}
 			$config = array_replace_recursive($config, $tmp);
 		}
 		return $config;

@@ -43,14 +43,22 @@
 		"doctrine/orm": "2.5.4",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"jakub-onderka/php-parallel-lint": "0.9.2",
-		"matthiasnoback/symfony-dependency-injection-test": "0.7.6",
+		"matthiasnoback/symfony-dependency-injection-test": "2.3.0",
 		"nella/coding-standard": "4.2.1",
-		"phing/phing": "2.14.0",
-		"phpunit/phpunit": "5.4.5",
+		"phing/phing": "2.16.1",
+		"phpunit/phpunit": "6.5.6",
 		"twig/twig": "1.24.1"
 	},
 	"config": {
 		"bin-dir": "bin"
+	},
+	"conflict": {
+		"symfony/console": "<3.0",
+		"symfony/filesystem": "<3.0",
+		"symfony/debug": "<3.0",
+		"symfony/http-foundation": "<3.0",
+		"symfony/event-dispatcher": "<3.0",
+		"symfony/http-kernel": "<3.0"
 	},
 	"archive": {
 		"exclude": [
