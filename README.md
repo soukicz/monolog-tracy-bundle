@@ -7,7 +7,6 @@
 [![Latest Stable Version](https://img.shields.io/packagist/v/nella/monolog-tracy-bundle.svg?style=flat-square)](https://packagist.org/packages/nella/monolog-tracy-bundle)
 [![Composer Downloads](https://img.shields.io/packagist/dt/nella/monolog-tracy-bundle.svg?style=flat-square)](https://packagist.org/packages/nella/monolog-tracy-bundle)
 [![Dependency Status](https://img.shields.io/versioneye/d/user/projects/569191a8daa0bf00330000db.svg?style=flat-square)](https://www.versioneye.com/user/projects/569191a8daa0bf00330000db)
-[![HHVM Status](https://img.shields.io/hhvm/nella/monolog-tracy-bundle.svg?style=flat-square)](http://hhvm.h4cc.de/package/nella/monolog-tracy-bundle)
 ![License MIT, GPL-2, GPL-3](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 Sponzored by [Shipito LLC](https://www.shipito.com).
