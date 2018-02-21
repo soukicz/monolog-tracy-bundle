@@ -4,7 +4,7 @@
 	"type": "library",
 	"keywords": ["Monolog", "Tracy", "log", "logging", "blue screen", "Symfony", "bundle"],
 	"homepage": "https://github.com/pavelkucera/monolog-extensions-bundle",
-	"license": ["MIT", "GPL-2.0", "GPL-3.0"],
+	"license": ["MIT", "GPL-2.0-only", "GPL-3.0-only"],
 	"authors": [
 		{
 			"name": "Pavel Kučera",
