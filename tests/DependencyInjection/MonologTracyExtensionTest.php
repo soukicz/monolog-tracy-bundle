@@ -15,6 +15,7 @@ use Monolog\Logger;
 use Nella\MonologTracy\BlueScreenHandler;
 use Symfony\Bundle\MonologBundle\DependencyInjection\MonologExtension;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Alias;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -272,11 +273,18 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 	public function testHandlerInstance()
 	{
 		$this->load();
+
+		// alias private service with public alias so it can be fetched from container
+		$this->container->setAlias(
+			'bluescreenhandler',
+			new Alias(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID, TRUE)
+		);
+
 		$this->compile();
 
 		@mkdir($this->container->getParameter(MonologTracyExtension::LOG_DIRECTORY_PARAMETER), 0777, TRUE);
 
-		$handler = $this->container->get(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID);
+		$handler = $this->container->get('bluescreenhandler');
 		$this->assertInstanceOf(BlueScreenHandler::class, $handler);
 	}
 
@@ -285,11 +293,18 @@ class MonologTracyExtensionTest extends \Matthias\SymfonyDependencyInjectionTest
 		$this->load([], [
 			'sectionPanels.yml',
 		]);
+
+		// alias private service with public alias so it can be fetched from container
+		$this->container->setAlias(
+			'bluescreenhandler',
+			new Alias(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID, TRUE)
+		);
+
 		$this->compile();
 
 		@mkdir($this->container->getParameter(MonologTracyExtension::LOG_DIRECTORY_PARAMETER), 0777, TRUE);
 
-		$handler = $this->container->get(MonologTracyExtension::BLUESCREEN_HANDLER_SERVICE_ID);
+		$handler = $this->container->get('bluescreenhandler');
 		$this->assertInstanceOf(BlueScreenHandler::class, $handler);
 	}
 
